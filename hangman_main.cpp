@@ -4,14 +4,14 @@
 using namespace std;
 
 int tries=3;
-string message= "you have three chances";//displayed over the jallad
+string message= "you have three chances";
 
 void hang_man(char);
-int checkguess(char,string,string&);//returns the number of times the character guessed by the user is present in the answer. &used with third string argument  because we need to udate it again and again
+int checkguess(char,string,string&);
 
 int main(){
-    char letter;//to store the letters guessed by the user
-    string month;//to store the correct answer month to be guessed by the user
+    char letter;
+    string month;
     string months[]={
          "january",
          "february",
@@ -27,13 +27,13 @@ int main(){
          "december"
     };
 
-srand(time(NULL));//to generate a newe random number each time
-int month_number=rand()%12;//generates random number between 0 and 11 which denotes the index of the month present in the array
+srand(time(NULL));
+int month_number=rand()%12;
 month =months[month_number];
 
-string hide_month(month.length(),'X');//'X' PLACED IN THE length of the month string which is the answer and needs to be hidden
+string hide_month(month.length(),'X');
         
-system("cls");//to clear the screen
+system("cls");
 
 while (tries!=0)
 {
@@ -43,32 +43,32 @@ while (tries!=0)
     cout<<"\t\t\t\tGuess a letter: ";
     cin>> letter;
 
-    system("cls");//because everytime we have to draw new screen
+    system("cls");
 
-    if (checkguess(letter,month,hide_month) ==0)//in this case if condition will hold true if the char guessed by the user is not present in the answer
+    if (checkguess(letter,month,hide_month) ==0)
     {
-        message="incorrect letter!";//mesage displayed over the jallad
+        message="incorrect letter!";
         tries--;
     }
     
-    else//if checkguess returns something
+    else
     {
         message="Nice! Correct Guess ";
     }
 
-    if (hide_month==month)//if player correctly guesses the month
+    if (hide_month==month)
     {
         message="you're free ";
-        hang_man('f');//to udate the state of the game from neutral('n) to free
+        hang_man('f');
         cout<<"\t\t\t\tLife: "<< tries <<endl;
         cout<<"\t\t\t\tThe month is: "<<month<<endl;
-        break;//as player wins the game 
+        break; 
     }
     
     if (tries==0)
     {
         message="you're hanged";
-        hang_man('h');//h for hanged failure state
+        hang_man('h');
         cout<<"\t\t\t\tLife: "<< tries <<endl;
         cout<<"\t\t\t\tThe month is: "<<month<<endl;
     }
@@ -88,11 +88,11 @@ int checkguess(char guess,string real_month,string  &hidden_month){
     int len=real_month.length();
     for (int i = 0; i < len; i++)
     {
-        if (guess == hidden_month[i])//if the user guesses a wrong guess of a letter already guessed before which was correct as it was present only once in the real month name
+        if (guess == hidden_month[i])
         {
             return 0;
         }
-        if (guess == real_month[i])//if it is a correct guess
+        if (guess == real_month[i])
         {
             hidden_month[i]=guess;
             matches++;
